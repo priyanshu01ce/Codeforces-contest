@@ -1,1 +1,63 @@
+//Problem A - Legs
 
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+ int t;
+ cin>>t;
+ while(t--){
+    int n;
+    cin>>n;          //Input taken
+    if(n<=4) cout<<1<<endl;  //if n is 4 or 2 there optimaaly according to question csn be 1 animal only 
+    else {
+        if(n%4 == 0){
+            cout<<n/4<<endl;
+        } else{                                  // else maximize the 4 leg animal and lwftout can be only one animal
+            cout<<(n/4) + 1<<endl;
+        }
+    }
+ }
+
+    return 0;
+}
+
+
+
+//Problem- B  - Scale
+
+
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, k;
+        cin >> n >> k;
+        vector<string> grid(n);
+        
+        for (int i = 0; i < n; ++i) {
+            cin >> grid[i];
+        }
+
+        vector<string> ans; 
+        
+        for (int i = 0; i < n; i += k) {       // according to question inside the matrix of k size all elements are same so needed to print out that directly looping on k and printing that out
+            string row;
+            for (int j = 0; j < n; j += k) {
+                row += grid[i][j]; 
+            }
+            ans.push_back(row);
+        }
+
+        for (const string& line : ans) {
+            cout << line << endl; 
+        }
+      
+    }
+    return 0;
+}
