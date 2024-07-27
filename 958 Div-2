@@ -1,0 +1,131 @@
+//Problem A - split the multiset
+// just a brute force appraoch and simulated the question , constraints were not high
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    while(t--) {
+        int n, k;
+        cin >> n >> k;
+        
+        if (n == 1) {
+            cout << 0 << "\n";
+        } else {
+            int count = 0;
+            while (n > 1) {
+                n -= (k - 1);
+                count++;
+            }
+            cout << count << "\n";
+        }
+    }
+    return 0;
+}
+
+
+//Problem b- Make majority
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    
+    while (t--) {
+        int n;
+        cin >> n;  // Reading unnecessary 'n'
+        string s;
+        cin >> s;
+        
+        int count0 = 0;
+        int count1 = 0;
+        
+        // Counting consecutive groups of zeros
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == '0') {
+                count0++;  // Increment for each new group of consecutive zeros
+                // Skip all consecutive zeros
+                while (i < s.length() && s[i] == '0') {
+                    i++;
+                }
+                i--; // Adjust index to correctly process the next character
+            }
+        }
+        
+        // Counting ones
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == '1') {
+                count1++;
+            }
+        }
+        
+        if (count0 < count1) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+        }
+    }
+    
+    return 0;
+}
+
+
+// Problem C - Increasing Sequence with Fixed OR
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+void solve(long long n) {
+    int len = 0;
+    vector<long long> seq;
+    vector<long long> bits;
+
+    // Find all set bits in the number and add corresponding values to bits vector
+    for (int i = 0; i < 61; ++i) {
+        if ((n & (1LL << i)) != 0) {
+            len++;
+            bits.push_back(1LL << i);
+        }
+    }
+
+    // Add the original number itself to the sequence
+    len++;
+    seq.push_back(n);
+
+    // Subtract each set bit value from the original number and add to the sequence if positive
+    for (long long bit : bits) {
+        if (n - bit > 0) {
+            seq.push_back(n - bit);
+        }
+    }
+
+    // Reverse the sequence to match the order as in Java code
+    reverse(seq.begin(), seq.end());
+
+    // Output the results
+    cout << seq.size() << endl;
+    for (long long element : seq) {
+        cout << element << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    int t;
+    cin >> t;
+
+    while (t-- > 0) {
+        long long num;
+        cin >> num;
+
+        solve(num);
+    }
+
+    return 0;
+}
