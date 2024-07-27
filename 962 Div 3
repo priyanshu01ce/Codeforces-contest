@@ -61,3 +61,88 @@ int main() {
     }
     return 0;
 }
+
+
+//Problem -C - Sort
+ //Purely a question based on string and implementation 
+#include <bits/stdc++.h>
+using namespace std;
+
+const int alpha = 26; 
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, q;
+        cin >> n >> q;
+        string a, b;
+        cin >> a >> b;
+        
+       
+        vector<vector<int>> fra(n + 1, vector<int>(alpha, 0));
+        vector<vector<int>> frb(n + 1, vector<int>(alpha, 0));
+        
+       
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < alpha; ++j) {
+                fra[i + 1][j] = fra[i][j];
+                frb[i + 1][j] = frb[i][j];
+            }
+            fra[i + 1][a[i] - 'a']++;
+            frb[i + 1][b[i] - 'a']++;
+        }
+        
+        while (q--) {
+            int l, r;
+            cin >> l >> r;
+            l--;  
+            r--; 
+            
+          
+            vector<int> suba(alpha, 0);
+            vector<int> subb(alpha, 0);
+            
+            for (int i = 0; i < alpha; ++i) {
+                suba[i] = fra[r + 1][i] - fra[l][i];
+                subb[i] = frb[r + 1][i] - frb[l][i];
+            }
+            
+            
+            int diff_count = 0;
+            for (int i = 0; i < alpha; ++i) {
+                diff_count += abs(suba[i] - subb[i]);
+            }
+            
+            cout << diff_count / 2 << endl;
+        }
+    }
+    return 0;
+}
+
+
+
+
+//Ssolutions done after contest upsolved
+
+Problem D- Fun
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, x, ans = 0;
+        cin >> n >> x;
+        //The main catch was to reduce the search space giving the hint of binary search 
+        for (int a = 1; a <= min(n, x); a++) {
+            for (int b = 1; a * b < n && a + b < x; b++) {
+                ans += min((n - a * b) / (a + b), x - a - b);
+            }
+        }
+        
+        cout << ans << '\n';
+    }
+}
